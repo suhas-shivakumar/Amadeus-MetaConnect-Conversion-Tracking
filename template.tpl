@@ -79,6 +79,31 @@ ___TEMPLATE_PARAMETERS___
 ]
 
 
+___SANDBOXED_JS_FOR_WEB_TEMPLATE___
+
+// Send the booking pixel to Meta Connect
+
+// Require relevant API
+const log = require('logToConsole');
+const sendPixel = require('sendPixel');
+const encodeUriComponent = require('encodeUriComponent');
+
+// Capture values of template fields
+log('data =', data);
+const merchantCode = data.merchantCode;
+const amount = data.amount;
+const currency = data.currency;
+const pnr = data.pnr;
+
+const url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
+
+sendPixel(url);
+
+
+// Call data.gtmOnSuccess when the tag is finished.
+data.gtmOnSuccess();
+
+
 ___WEB_PERMISSIONS___
 
 [
@@ -129,31 +154,11 @@ ___WEB_PERMISSIONS___
 ]
 
 
-___SANDBOXED_JS_FOR_WEB_TEMPLATE___
+___TESTS___
 
-// Send the booking pixel to Meta Connect
-
-// Require relevant API
-const log = require('logToConsole');
-const sendPixel = require('sendPixel');
-const encodeUriComponent = require('encodeUriComponent');
-
-// Capture values of template fields
-log('data =', data);
-const merchantCode = data.merchantCode.toUpperCase();
-const amount = data.amount;
-const currency = data.currency;
-const pnr = data.pnr;
-
-const url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
-
-sendPixel(url);
-
-
-// Call data.gtmOnSuccess when the tag is finished.
-data.gtmOnSuccess();
+scenarios: []
 
 
 ___NOTES___
 
-Created on 11/4/2019, 5:47:31 PM
+Created on 11/7/2019, 4:28:28 PM

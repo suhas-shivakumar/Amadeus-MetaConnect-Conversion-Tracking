@@ -4,4 +4,4 @@ This is the repository of the source code of the Amadeus MetaConnect conversion 
 
 ## What is Amadeus MetaConnect?
 
-Please refer to the [Amadeus Portfolio](https://amadeus.com/en/portfolio/airlines/metaconnect-network) for more information
+Please refer to the [Amadeus Portfolio](https://amadeus.com/en/portfolio/airlines/metaconnect-network) for more information.
