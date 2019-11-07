@@ -156,9 +156,59 @@ ___WEB_PERMISSIONS___
 
 ___TESTS___
 
-scenarios: []
+scenarios:
+- name: Basic test
+  code: |-
+    var triggerUrl;
+
+    mock('sendPixel', function(url, onSuccess, onFailure) {
+      triggerUrl = url;
+      if (onSuccess != null) {
+        onSuccess();
+      }
+    });
+
+    // Call runCode to run the template's code.
+    runCode({
+      merchantCode: '7X',
+      currency: 'GBP',
+      amount: '543.21',
+      pnr: 'FEDBCA'
+    });
+
+    // Verify that the tag finished successfully.
+    assertApi('gtmOnSuccess').wasCalled();
+
+    // Verify that the URL was correctly fired
+    assertApi('sendPixel').wasCalled();
+    assertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=7X&amount=543.21&currency=GBP&pnr=FEDBCA');
+- name: Security checks
+  code: |-
+    var triggerUrl;
+
+    mock('sendPixel', function(url, onSuccess, onFailure) {
+      triggerUrl = url;
+      if (onSuccess != null) {
+        onSuccess();
+      }
+    });
+
+    // Call runCode to run the template's code.
+    runCode({
+      merchantCode: '8&X',
+      currency: 'A?B',
+      amount: '543=21',
+      pnr: 'a&d=f'
+    });
+
+    // Verify that the tag finished successfully.
+    assertApi('gtmOnSuccess').wasCalled();
+
+    // Verify that the URL was correctly fired
+    assertApi('sendPixel').wasCalled();
+    assertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=8%26X&amount=543%3D21&currency=A%3FB&pnr=a%26d%3Df');
 
 
 ___NOTES___
 
-Created on 11/7/2019, 4:28:28 PM
+Created on 11/7/2019, 5:38:34 PM
