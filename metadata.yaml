@@ -15,5 +15,9 @@
 homepage: "https://amadeus.com"
 documentation: "https://api.connect.travelaudience.com/"
 versions:
+  # Latest version
+  - sha: 01851b1500fedb8498565adcc37abe32a07821f8
+    changeNotes: Added parameter validation. Fixed callbacks.
+  # Older versions
   - sha: 5e1d53fd371f106c39b34dc896cc7d40647f7e28
     changeNotes: Initial release.
