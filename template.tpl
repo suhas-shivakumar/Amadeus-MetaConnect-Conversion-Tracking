@@ -50,7 +50,12 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Merchant code",
     "simpleValueType": true,
     "valueHint": "6X",
-    "help": "This is the merchant code you are registered with in Meta Connect."
+    "help": "This is the merchant code you are registered with in Meta Connect.",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   },
   {
     "type": "TEXT",
@@ -58,7 +63,12 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Currency code",
     "simpleValueType": true,
     "help": "ISO 4217 code of the currency of the payment.",
-    "valueHint": "EUR"
+    "valueHint": "EUR",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   },
   {
     "type": "TEXT",
@@ -66,7 +76,12 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "Amount",
     "simpleValueType": true,
     "help": "Total amount of the booking, including taxes.",
-    "valueHint": "1234.56"
+    "valueHint": "1234.56",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   },
   {
     "type": "TEXT",
@@ -74,7 +89,12 @@ ___TEMPLATE_PARAMETERS___
     "displayName": "PNR",
     "simpleValueType": true,
     "help": "Record Locator of the booking.",
-    "valueHint": "AB12C3"
+    "valueHint": "AB12C3",
+    "valueValidators": [
+      {
+        "type": "NON_EMPTY"
+      }
+    ]
   }
 ]
 
@@ -97,11 +117,7 @@ const pnr = data.pnr;
 
 const url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
 
-sendPixel(url);
-
-
-// Call data.gtmOnSuccess when the tag is finished.
-data.gtmOnSuccess();
+sendPixel(url, data.gtmOnSuccess, data.gtmOnFailure);
 
 
 ___WEB_PERMISSIONS___
@@ -211,4 +227,4 @@ scenarios:
 
 ___NOTES___
 
-Created on 11/7/2019, 5:38:34 PM
+Created on 1/24/2020, 11:33:06 AM
