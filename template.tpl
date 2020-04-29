@@ -107,6 +107,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const log = require('logToConsole');
 const sendPixel = require('sendPixel');
 const encodeUriComponent = require('encodeUriComponent');
+const getCookieValues = require('getCookieValues');
 
 // Capture values of template fields
 log('data =', data);
@@ -115,7 +116,17 @@ const amount = data.amount;
 const currency = data.currency;
 const pnr = data.pnr;
 
-const url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
+// Get Tansel and Hid values from the cookies
+const tansel_cookie = getCookieValues('mc_tansel', false);
+const hid_cookie = getCookieValues('mc_hid', false);
+
+let url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
+if (!!tansel_cookie && tansel_cookie != "") {
+  url = url + "&tansel=" + tansel_cookie;
+}
+if (!!hid_cookie && hid_cookie != "") {
+  url = url + "&hid=" + hid_cookie;
+}
 
 sendPixel(url, data.gtmOnSuccess, data.gtmOnFailure);
 
@@ -156,6 +167,43 @@ ___WEB_PERMISSIONS___
               {
                 "type": 1,
                 "string": "https://track.connect.travelaudience.com/dlv/booking.gif?*"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "get_cookies",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "cookieAccess",
+          "value": {
+            "type": 1,
+            "string": "specific"
+          }
+        },
+        {
+          "key": "cookieNames",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "mc_tansel"
+              },
+              {
+                "type": 1,
+                "string": "mc_hid"
               }
             ]
           }
@@ -223,8 +271,20 @@ scenarios:
     // Verify that the URL was correctly fired
     assertApi('sendPixel').wasCalled();
     assertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=8%26X&amount=543%3D21&currency=A%3FB&pnr=a%26d%3Df');
+- name: Cookie test
+  code: "var triggerUrl;\n\nmock('sendPixel', function(url, onSuccess, onFailure)\
+    \ {\n  triggerUrl = url;\n  if (onSuccess != null) {\n    onSuccess();\n  }\n\
+    });\n\nmock('getCookieValues', function(name, decode) {\n  if (name === \"mc_tansel\"\
+    ) {\n    return \"TEST_TANSEL\";\n  }\n  if (name === \"mc_hid\") {\n    return\
+    \ \"TEST_HID\";\n  }\n  \n  return undefined;\n});\n\n\n// Call runCode to run\
+    \ the template's code.\nrunCode({\n  merchantCode: '8X',\n  currency: 'USD',\n\
+    \  amount: '563.21',\n  pnr: 'ABCDEF'\n});\n\n// Verify that the tag finished\
+    \ successfully.\nassertApi('gtmOnSuccess').wasCalled();\n\n// Verify that the\
+    \ URL was correctly fired\nassertApi('sendPixel').wasCalled();\nassertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=8X&amount=563.21&currency=USD&pnr=ABCDEF&tansel=TEST_TANSEL&hid=TEST_HID');"
 
 
 ___NOTES___
 
-Created on 1/24/2020, 11:33:06 AM
+Created on 4/29/2020, 12:05:46 PM
+
+
