@@ -1,4 +1,4 @@
-// Copyright 2019 Amadeus IT Group SA
+ // Copyright 2019 Amadeus IT Group SA
 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
 https://developers.google.com/tag-manager/gallery-tos (or such other URL as
 Google may provide), as modified from time to time.
-
 
 ___INFO___
 
@@ -122,8 +121,8 @@ const currency = data.currency;
 const pnr = data.pnr;
 
 // Get Tansel and Hid values from the cookies
-const tansel_cookie = getCookieValues('mc_tansel_' + merchantCode, false);
-const hid_cookie = getCookieValues('mc_hid_' + merchantCode, false);
+const tansel_cookie = getCookieValues('mc_tansel', false);
+const hid_cookie = getCookieValues('mc_hid', false);
 
 let url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
 if (!!tansel_cookie && tansel_cookie != "") {
@@ -211,11 +210,11 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "mc_tansel_XX"
+                "string": "mc_tansel"
               },
               {
                 "type": 1,
-                "string": "mc_hid_XX"
+                "string": "mc_hid"
               }
             ]
           }
@@ -286,8 +285,8 @@ scenarios:
 - name: Cookie test
   code: "var triggerUrl;\n\nmock('sendPixel', function(url, onSuccess, onFailure)\
     \ {\n  triggerUrl = url;\n  if (onSuccess != null) {\n    onSuccess();\n  }\n\
-    });\n\nmock('getCookieValues', function(name, decode) {\n  if (name === \"mc_tansel_8X\"\
-    ) {\n    return \"TEST_TANSEL\";\n  }\n  if (name === \"mc_hid_8X\") {\n    return\
+    });\n\nmock('getCookieValues', function(name, decode) {\n  if (name === \"mc_tansel\"\
+    ) {\n    return \"TEST_TANSEL\";\n  }\n  if (name === \"mc_hid\") {\n    return\
     \ \"TEST_HID\";\n  }\n  \n  return undefined;\n});\n\n\n// Call runCode to run\
     \ the template's code.\nrunCode({\n  merchantCode: '8X',\n  currency: 'USD',\n\
     \  amount: '563.21',\n  pnr: 'ABCDEF'\n});\n\n// Verify that the tag finished\
@@ -323,5 +322,3 @@ scenarios:
 ___NOTES___
 
 Created on 4/29/2020, 12:05:46 PM
-
-
