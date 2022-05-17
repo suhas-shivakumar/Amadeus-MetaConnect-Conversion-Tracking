@@ -16,8 +16,8 @@ homepage: "https://amadeus.com"
 documentation: "https://api.connect.travelaudience.com/"
 versions:
   # Latest version
-  - sha: b0033c2e25a1468c32fb6b535ef6c19020885381
-    changeNotes: Change in naming format of the cookies
+  - sha: 9647e4627a53e7836a34670cdbd619cb9700ae7c
+    changeNotes: Reverting back the naming changes for the cookies
   # Older versions
   - sha: 294d9b1716e94c315c0b75dc84218d151561fa83
     changeNotes: Added support for prices as numbers
