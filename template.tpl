@@ -124,7 +124,7 @@ const pnr = data.pnr;
 const tansel_cookie = getCookieValues('mc_tansel', false);
 const hid_cookie = getCookieValues('mc_hid', false);
 
-let url = "https://track.connect.travelaudience.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
+let url = "https://track.metaconnect.saas.amadeus.com/dlv/booking.gif?code=" + encodeUriComponent(merchantCode) + "&amount=" + encodeUriComponent(amount) + "&currency=" + encodeUriComponent(currency) + "&pnr=" + encodeUriComponent(pnr);
 if (!!tansel_cookie && tansel_cookie != "") {
   url = url + "&tansel=" + tansel_cookie;
 }
@@ -177,7 +177,7 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://track.connect.travelaudience.com/dlv/booking.gif?*"
+                "string": "https://track.metaconnect.saas.amadeus.com/dlv/booking.gif?*"
               }
             ]
           }
@@ -256,7 +256,7 @@ scenarios:
 
     // Verify that the URL was correctly fired
     assertApi('sendPixel').wasCalled();
-    assertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=7X&amount=543.21&currency=GBP&pnr=FEDBCA');
+    assertThat(triggerUrl).isEqualTo('https://track.metaconnect.saas.amadeus.com/dlv/booking.gif?code=7X&amount=543.21&currency=GBP&pnr=FEDBCA');
 - name: Security checks
   code: |-
     var triggerUrl;
@@ -281,7 +281,7 @@ scenarios:
 
     // Verify that the URL was correctly fired
     assertApi('sendPixel').wasCalled();
-    assertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=8%26X&amount=543%3D21&currency=A%3FB&pnr=a%26d%3Df');
+    assertThat(triggerUrl).isEqualTo('https://track.metaconnect.saas.amadeus.com/dlv/booking.gif?code=8%26X&amount=543%3D21&currency=A%3FB&pnr=a%26d%3Df');
 - name: Cookie test
   code: "var triggerUrl;\n\nmock('sendPixel', function(url, onSuccess, onFailure)\
     \ {\n  triggerUrl = url;\n  if (onSuccess != null) {\n    onSuccess();\n  }\n\
@@ -291,7 +291,7 @@ scenarios:
     \ the template's code.\nrunCode({\n  merchantCode: '8X',\n  currency: 'USD',\n\
     \  amount: '563.21',\n  pnr: 'ABCDEF'\n});\n\n// Verify that the tag finished\
     \ successfully.\nassertApi('gtmOnSuccess').wasCalled();\n\n// Verify that the\
-    \ URL was correctly fired\nassertApi('sendPixel').wasCalled();\nassertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=8X&amount=563.21&currency=USD&pnr=ABCDEF&tansel=TEST_TANSEL&hid=TEST_HID');"
+    \ URL was correctly fired\nassertApi('sendPixel').wasCalled();\nassertThat(triggerUrl).isEqualTo('https://track.metaconnect.saas.amadeus.com/dlv/booking.gif?code=8X&amount=563.21&currency=USD&pnr=ABCDEF&tansel=TEST_TANSEL&hid=TEST_HID');"
 - name: Accept numbers
   code: |-
     var triggerUrl;
@@ -316,7 +316,7 @@ scenarios:
 
     // Verify that the URL was correctly fired
     assertApi('sendPixel').wasCalled();
-    assertThat(triggerUrl).isEqualTo('https://track.connect.travelaudience.com/dlv/booking.gif?code=6X&amount=324768&currency=ISK&pnr=ABCDEF');
+    assertThat(triggerUrl).isEqualTo('https://track.metaconnect.saas.amadeus.com/dlv/booking.gif?code=6X&amount=324768&currency=ISK&pnr=ABCDEF');
 
 
 ___NOTES___
