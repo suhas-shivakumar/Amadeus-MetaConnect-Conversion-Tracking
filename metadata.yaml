@@ -16,9 +16,11 @@ homepage: "https://amadeus.com"
 documentation: "https://api.connect.travelaudience.com/"
 versions:
   # Latest version
+  - sha: 57fdad30929b77450c37aea1f50f0292e92a6146
+    changeNotes: Revert the new subdomain changes
+  # Older versions
   - sha: 7c5078b58a0a75216352095400dd99e4ca381355
     changeNotes: Use the new subdomain
-  # Older versions
   - sha: 9647e4627a53e7836a34670cdbd619cb9700ae7c
     changeNotes: Reverting back the naming changes for the cookies
   - sha: 294d9b1716e94c315c0b75dc84218d151561fa83
